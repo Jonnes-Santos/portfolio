@@ -31,6 +31,16 @@
             padding: 0;
             box-sizing: border-box;
         }
+        
+        /* Forçar visibilidade do título em todos os casos */
+        .professional-title,
+        .title-section,
+        .subtitle,
+        .comment {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+            visibility: visible !important;
+        }
     
         body {
             font-family: 'Ubuntu', sans-serif;
@@ -129,6 +139,8 @@
             transform: translateY(0) !important;
             position: relative;
             z-index: 1;
+            /* Forçar visibilidade */
+            visibility: visible !important;
         }
     
         /* Wrapper para conteúdo das seções */
@@ -1961,6 +1973,9 @@
             padding: 1rem;
             min-height: 180px;
             transition: all 0.8s ease-out;
+            /* No mobile, ocupar todo o espaço disponível */
+            width: 100% !important;
+            height: auto !important;
         }
         
         /* No mobile, esconder itens não visíveis */
@@ -1969,6 +1984,9 @@
             transform: scale(0.8);
             pointer-events: none;
             display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+            overflow: hidden !important;
         }
         
         .matrix-item.visible {
@@ -1976,6 +1994,9 @@
             transform: scale(1);
             pointer-events: auto;
             display: block !important;
+            width: 100% !important;
+            height: auto !important;
+            min-height: 200px !important;
         }
         
         .matrix-icon i {
@@ -2208,6 +2229,9 @@
                 opacity: 1 !important;
                 transform: translateY(0) !important;
                 transition: none !important;
+                /* Forçar visibilidade */
+                visibility: visible !important;
+                display: flex !important;
             }
             
             .professional-title {
@@ -2216,6 +2240,11 @@
                 visibility: visible !important;
                 transition: none !important;
                 display: flex !important;
+                /* Forçar visibilidade adicional */
+                position: relative !important;
+                z-index: 999 !important;
+                color: var(--text-color) !important;
+                text-shadow: none !important;
             }
             
             .subtitle, .comment {
@@ -2224,6 +2253,14 @@
                 visibility: visible !important;
                 transition: none !important;
                 display: block !important;
+                /* Forçar visibilidade adicional */
+                position: relative !important;
+                z-index: 999 !important;
+                color: var(--secondary-color) !important;
+            }
+            
+            .comment {
+                color: #777 !important;
             }
             
             .data-matrix {
@@ -2240,6 +2277,13 @@
             .matrix-item {
                 padding: 0.6rem;
                 min-height: 140px;
+            }
+            
+            .matrix-item.visible {
+                width: 100% !important;
+                height: auto !important;
+                min-height: 160px !important;
+                padding: 1rem !important;
             }
             
             .matrix-icon i {
@@ -2679,6 +2723,10 @@
             z-index: 1;
             text-align: center;
             width: 100%;
+            /* Forçar visibilidade */
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+            visibility: visible !important;
         }
         
         .title-line {
@@ -2791,6 +2839,9 @@
                 opacity: 1 !important;
                 transform: translateY(0) !important;
                 transition: none !important;
+                /* Forçar visibilidade */
+                visibility: visible !important;
+                display: flex !important;
             }
             
             /* Garantir que o título seja sempre visível no mobile */
@@ -2800,6 +2851,11 @@
                 visibility: visible !important;
                 transition: none !important;
                 display: flex !important;
+                /* Forçar visibilidade adicional */
+                position: relative !important;
+                z-index: 999 !important;
+                color: var(--text-color) !important;
+                text-shadow: none !important;
             }
             
             .subtitle, .comment {
@@ -2808,6 +2864,14 @@
                 visibility: visible !important;
                 transition: none !important;
                 display: block !important;
+                /* Forçar visibilidade adicional */
+                position: relative !important;
+                z-index: 999 !important;
+                color: var(--secondary-color) !important;
+            }
+            
+            .comment {
+                color: #777 !important;
             }
         }
         
@@ -2820,6 +2884,9 @@
                 opacity: 1 !important;
                 transform: translateY(0) !important;
                 transition: none !important;
+                /* Forçar visibilidade */
+                visibility: visible !important;
+                display: flex !important;
             }
             
             /* Garantir que o título seja sempre visível no mobile */
@@ -2829,6 +2896,11 @@
                 visibility: visible !important;
                 transition: none !important;
                 display: flex !important;
+                /* Forçar visibilidade adicional */
+                position: relative !important;
+                z-index: 999 !important;
+                color: var(--text-color) !important;
+                text-shadow: none !important;
             }
             
             .subtitle, .comment {
@@ -2837,6 +2909,28 @@
                 visibility: visible !important;
                 transition: none !important;
                 display: block !important;
+                /* Forçar visibilidade adicional */
+                position: relative !important;
+                z-index: 999 !important;
+                color: var(--secondary-color) !important;
+            }
+            
+            .comment {
+                color: #777 !important;
+            }
+            
+            /* Matrix mobile - ocupar todo o espaço */
+            .data-matrix {
+                width: 98% !important;
+                padding: 1rem !important;
+                margin: 1rem auto !important;
+            }
+            
+            .matrix-item.visible {
+                width: 100% !important;
+                height: auto !important;
+                min-height: 180px !important;
+                padding: 1.5rem !important;
             }
         }
     </style>
