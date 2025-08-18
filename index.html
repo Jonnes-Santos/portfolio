@@ -39,6 +39,25 @@
         .comment {
             /* Estilos base - serão sobrescritos por media queries específicas */
         }
+        
+        /* Forçar visibilidade no mobile - estilos globais */
+        @media (max-width: 768px) {
+            .professional-title,
+            .title-section,
+            .subtitle,
+            .comment {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+                visibility: visible !important;
+                display: block !important;
+                position: relative !important;
+                z-index: 9999 !important;
+            }
+            
+            .professional-title {
+                display: flex !important;
+            }
+        }
     
         body {
             font-family: 'Ubuntu', sans-serif;
@@ -1988,13 +2007,31 @@
         
         /* Mobile: Matrix ocupar todo o espaço disponível */
         @media (max-width: 768px) {
+            .data-matrix {
+                width: 100% !important;
+                padding: 1rem !important;
+                margin: 1rem auto !important;
+                box-sizing: border-box !important;
+            }
+            
+            .matrix-grid {
+                width: 100% !important;
+                display: block !important;
+            }
+            
             .matrix-item.visible {
                 width: 100% !important;
                 height: auto !important;
-                min-height: 250px !important;
-                padding: 2rem !important;
+                min-height: 300px !important;
+                max-height: 400px !important;
+                padding: 2.5rem !important;
                 margin: 0 !important;
                 box-sizing: border-box !important;
+                /* Forçar ocupação total do espaço */
+                position: relative !important;
+                display: block !important;
+                float: none !important;
+                clear: both !important;
             }
             
             .matrix-item.hidden {
@@ -2003,6 +2040,36 @@
                 overflow: hidden !important;
                 margin: 0 !important;
                 padding: 0 !important;
+                position: absolute !important;
+                left: -9999px !important;
+            }
+            
+            /* Garantir que o item visível ocupe todo o espaço */
+            .matrix-item.visible .matrix-icon {
+                font-size: 3rem !important;
+                margin-bottom: 2rem !important;
+            }
+            
+            .matrix-item.visible .matrix-content {
+                width: 100% !important;
+                text-align: center !important;
+            }
+            
+            .matrix-item.visible .matrix-value {
+                font-size: 2rem !important;
+                margin: 1rem 0 !important;
+            }
+            
+            .matrix-item.visible .matrix-label {
+                font-size: 1.2rem !important;
+                margin-bottom: 1rem !important;
+            }
+            
+            .matrix-item.visible .matrix-bar,
+            .matrix-item.visible .matrix-status {
+                width: 100% !important;
+                height: 12px !important;
+                margin-top: 1rem !important;
             }
         }
         
@@ -2289,10 +2356,16 @@
             .matrix-item.visible {
                 width: 100% !important;
                 height: auto !important;
-                min-height: 180px !important;
-                padding: 1rem !important;
+                min-height: 200px !important;
+                max-height: 300px !important;
+                padding: 1.5rem !important;
                 margin: 0 !important;
                 box-sizing: border-box !important;
+                /* Forçar ocupação total do espaço */
+                position: relative !important;
+                display: block !important;
+                float: none !important;
+                clear: both !important;
             }
             
             .matrix-item.hidden {
@@ -2301,6 +2374,36 @@
                 overflow: hidden !important;
                 margin: 0 !important;
                 padding: 0 !important;
+                position: absolute !important;
+                left: -9999px !important;
+            }
+            
+            /* Garantir que o item visível ocupe todo o espaço */
+            .matrix-item.visible .matrix-icon {
+                font-size: 2rem !important;
+                margin-bottom: 1rem !important;
+            }
+            
+            .matrix-item.visible .matrix-content {
+                width: 100% !important;
+                text-align: center !important;
+            }
+            
+            .matrix-item.visible .matrix-value {
+                font-size: 1.5rem !important;
+                margin: 0.8rem 0 !important;
+            }
+            
+            .matrix-item.visible .matrix-label {
+                font-size: 1rem !important;
+                margin-bottom: 0.8rem !important;
+            }
+            
+            .matrix-item.visible .matrix-bar,
+            .matrix-item.visible .matrix-status {
+                width: 100% !important;
+                height: 8px !important;
+                margin-top: 0.8rem !important;
             }
             
             .matrix-icon i {
@@ -2854,6 +2957,9 @@
                 transition: none !important;
                 visibility: visible !important;
                 display: flex !important;
+                /* Forçar visibilidade máxima */
+                position: relative !important;
+                z-index: 9999 !important;
             }
             
             /* Garantir que o título seja sempre visível no mobile */
@@ -2864,9 +2970,14 @@
                 transition: none !important;
                 display: flex !important;
                 position: relative !important;
-                z-index: 999 !important;
+                z-index: 9999 !important;
                 color: var(--text-color) !important;
                 text-shadow: none !important;
+                /* Forçar visibilidade máxima */
+                background: rgba(0, 0, 0, 0.8) !important;
+                padding: 1rem !important;
+                border-radius: 8px !important;
+                box-shadow: 0 0 20px rgba(0, 255, 157, 0.3) !important;
             }
             
             .subtitle, .comment {
@@ -2876,12 +2987,18 @@
                 transition: none !important;
                 display: block !important;
                 position: relative !important;
-                z-index: 999 !important;
+                z-index: 9999 !important;
                 color: var(--secondary-color) !important;
+                /* Forçar visibilidade máxima */
+                background: rgba(0, 0, 0, 0.6) !important;
+                padding: 0.5rem !important;
+                border-radius: 4px !important;
+                margin: 0.5rem 0 !important;
             }
             
             .comment {
                 color: #777 !important;
+                background: rgba(0, 0, 0, 0.4) !important;
             }
         }
         
@@ -2939,10 +3056,16 @@
             .matrix-item.visible {
                 width: 100% !important;
                 height: auto !important;
-                min-height: 200px !important;
-                padding: 1.5rem !important;
+                min-height: 250px !important;
+                max-height: 350px !important;
+                padding: 2rem !important;
                 margin: 0 !important;
                 box-sizing: border-box !important;
+                /* Forçar ocupação total do espaço */
+                position: relative !important;
+                display: block !important;
+                float: none !important;
+                clear: both !important;
             }
             
             .matrix-item.hidden {
@@ -2951,6 +3074,36 @@
                 overflow: hidden !important;
                 margin: 0 !important;
                 padding: 0 !important;
+                position: absolute !important;
+                left: -9999px !important;
+            }
+            
+            /* Garantir que o item visível ocupe todo o espaço */
+            .matrix-item.visible .matrix-icon {
+                font-size: 2.5rem !important;
+                margin-bottom: 1.5rem !important;
+            }
+            
+            .matrix-item.visible .matrix-content {
+                width: 100% !important;
+                text-align: center !important;
+            }
+            
+            .matrix-item.visible .matrix-value {
+                font-size: 1.8rem !important;
+                margin: 1rem 0 !important;
+            }
+            
+            .matrix-item.visible .matrix-label {
+                font-size: 1.1rem !important;
+                margin-bottom: 1rem !important;
+            }
+            
+            .matrix-item.visible .matrix-bar,
+            .matrix-item.visible .matrix-status {
+                width: 100% !important;
+                height: 10px !important;
+                margin-top: 1rem !important;
             }
         }
     </style>
