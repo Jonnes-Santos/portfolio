@@ -40,6 +40,63 @@
             /* Estilos base - serão sobrescritos por media queries específicas */
         }
         
+        /* ESTILO DE EMERGÊNCIA - Forçar visibilidade do título no mobile */
+        @media (max-width: 768px) {
+            /* Forçar visibilidade de TODOS os elementos do título */
+            #dynamic-title,
+            #typing-text,
+            #subtitle-line,
+            #comment-line,
+            .title-line,
+            .professional-title,
+            .title-section,
+            .subtitle,
+            .comment {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+                visibility: visible !important;
+                display: block !important;
+                position: relative !important;
+                z-index: 99999 !important;
+                color: #e0e0e0 !important;
+                text-shadow: 0 0 20px rgba(0, 255, 157, 1) !important;
+                background: transparent !important;
+                font-size: 2rem !important;
+                font-weight: bold !important;
+                text-align: center !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                overflow: visible !important;
+                clip: auto !important;
+                clip-path: none !important;
+            }
+            
+            /* Forçar flexbox para o título principal */
+            .professional-title,
+            #dynamic-title {
+                display: flex !important;
+                flex-direction: column !important;
+            }
+            
+            /* Forçar cores específicas para cada elemento */
+            #typing-text {
+                color: #e0e0e0 !important;
+                text-shadow: 0 0 25px rgba(0, 255, 157, 1) !important;
+            }
+            
+            #subtitle-line {
+                color: #00b8ff !important;
+                text-shadow: 0 0 20px rgba(0, 184, 255, 1) !important;
+                font-size: 1.5rem !important;
+            }
+            
+            #comment-line {
+                color: #777 !important;
+                text-shadow: 0 0 15px rgba(119, 119, 119, 1) !important;
+                font-size: 1.2rem !important;
+            }
+        }
+        
         /* Forçar visibilidade no mobile - estilos globais */
         @media (max-width: 768px) {
             .professional-title,
@@ -52,10 +109,25 @@
                 display: block !important;
                 position: relative !important;
                 z-index: 9999 !important;
+                /* Forçar cores específicas */
+                color: #e0e0e0 !important;
+                text-shadow: 0 0 15px rgba(0, 255, 157, 0.8) !important;
             }
             
             .professional-title {
                 display: flex !important;
+                color: #e0e0e0 !important;
+                text-shadow: 0 0 20px rgba(0, 255, 157, 1) !important;
+            }
+            
+            .subtitle {
+                color: #00b8ff !important;
+                text-shadow: 0 0 15px rgba(0, 184, 255, 0.8) !important;
+            }
+            
+            .comment {
+                color: #777 !important;
+                text-shadow: 0 0 10px rgba(119, 119, 119, 0.8) !important;
             }
         }
     
@@ -2971,13 +3043,21 @@
                 display: flex !important;
                 position: relative !important;
                 z-index: 9999 !important;
-                color: var(--text-color) !important;
-                text-shadow: 0 0 10px rgba(0, 255, 157, 0.5) !important;
+                /* Forçar cores específicas */
+                color: #e0e0e0 !important;
+                text-shadow: 0 0 20px rgba(0, 255, 157, 1) !important;
                 /* Forçar visibilidade máxima sem fundo preto */
                 background: transparent !important;
                 padding: 1rem !important;
                 border-radius: 8px !important;
                 box-shadow: 0 0 20px rgba(0, 255, 157, 0.3) !important;
+                /* Forçar tamanho e posição */
+                font-size: 2rem !important;
+                font-weight: bold !important;
+                line-height: 1.2 !important;
+                text-align: center !important;
+                width: 100% !important;
+                max-width: 100% !important;
             }
             
             .subtitle, .comment {
@@ -2988,17 +3068,26 @@
                 display: block !important;
                 position: relative !important;
                 z-index: 9999 !important;
-                color: var(--secondary-color) !important;
+                /* Forçar cores específicas */
+                color: #00b8ff !important;
+                text-shadow: 0 0 15px rgba(0, 184, 255, 0.8) !important;
                 /* Forçar visibilidade máxima sem fundo preto */
                 background: transparent !important;
                 padding: 0.5rem !important;
                 border-radius: 4px !important;
                 margin: 0.5rem 0 !important;
+                /* Forçar tamanho e posição */
+                font-size: 1.2rem !important;
+                font-weight: 500 !important;
+                text-align: center !important;
+                width: 100% !important;
             }
             
             .comment {
                 color: #777 !important;
                 background: transparent !important;
+                text-shadow: 0 0 10px rgba(119, 119, 119, 0.8) !important;
+                font-size: 1rem !important;
             }
         }
         
