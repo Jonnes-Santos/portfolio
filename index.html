@@ -32,14 +32,12 @@
             box-sizing: border-box;
         }
         
-        /* Forçar visibilidade do título em todos os casos */
+        /* Estilos base para o título */
         .professional-title,
         .title-section,
         .subtitle,
         .comment {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-            visibility: visible !important;
+            /* Estilos base - serão sobrescritos por media queries específicas */
         }
     
         body {
@@ -135,12 +133,10 @@
             flex-direction: column;
             align-items: center;
             gap: 2rem;
-            opacity: 1 !important;
-            transform: translateY(0) !important;
+            opacity: 1;
+            transform: translateY(0);
             position: relative;
             z-index: 1;
-            /* Forçar visibilidade */
-            visibility: visible !important;
         }
     
         /* Wrapper para conteúdo das seções */
@@ -1973,9 +1969,6 @@
             padding: 1rem;
             min-height: 180px;
             transition: all 0.8s ease-out;
-            /* No mobile, ocupar todo o espaço disponível */
-            width: 100% !important;
-            height: auto !important;
         }
         
         /* No mobile, esconder itens não visíveis */
@@ -1984,9 +1977,6 @@
             transform: scale(0.8);
             pointer-events: none;
             display: none !important;
-            width: 0 !important;
-            height: 0 !important;
-            overflow: hidden !important;
         }
         
         .matrix-item.visible {
@@ -1994,9 +1984,26 @@
             transform: scale(1);
             pointer-events: auto;
             display: block !important;
-            width: 100% !important;
-            height: auto !important;
-            min-height: 200px !important;
+        }
+        
+        /* Mobile: Matrix ocupar todo o espaço disponível */
+        @media (max-width: 768px) {
+            .matrix-item.visible {
+                width: 100% !important;
+                height: auto !important;
+                min-height: 250px !important;
+                padding: 2rem !important;
+                margin: 0 !important;
+                box-sizing: border-box !important;
+            }
+            
+            .matrix-item.hidden {
+                width: 0 !important;
+                height: 0 !important;
+                overflow: hidden !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
         }
         
         .matrix-icon i {
@@ -2282,8 +2289,18 @@
             .matrix-item.visible {
                 width: 100% !important;
                 height: auto !important;
-                min-height: 160px !important;
+                min-height: 180px !important;
                 padding: 1rem !important;
+                margin: 0 !important;
+                box-sizing: border-box !important;
+            }
+            
+            .matrix-item.hidden {
+                width: 0 !important;
+                height: 0 !important;
+                overflow: hidden !important;
+                margin: 0 !important;
+                padding: 0 !important;
             }
             
             .matrix-icon i {
@@ -2723,10 +2740,6 @@
             z-index: 1;
             text-align: center;
             width: 100%;
-            /* Forçar visibilidade */
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-            visibility: visible !important;
         }
         
         .title-line {
@@ -2839,7 +2852,6 @@
                 opacity: 1 !important;
                 transform: translateY(0) !important;
                 transition: none !important;
-                /* Forçar visibilidade */
                 visibility: visible !important;
                 display: flex !important;
             }
@@ -2851,7 +2863,6 @@
                 visibility: visible !important;
                 transition: none !important;
                 display: flex !important;
-                /* Forçar visibilidade adicional */
                 position: relative !important;
                 z-index: 999 !important;
                 color: var(--text-color) !important;
@@ -2864,7 +2875,6 @@
                 visibility: visible !important;
                 transition: none !important;
                 display: block !important;
-                /* Forçar visibilidade adicional */
                 position: relative !important;
                 z-index: 999 !important;
                 color: var(--secondary-color) !important;
@@ -2929,8 +2939,18 @@
             .matrix-item.visible {
                 width: 100% !important;
                 height: auto !important;
-                min-height: 180px !important;
+                min-height: 200px !important;
                 padding: 1.5rem !important;
+                margin: 0 !important;
+                box-sizing: border-box !important;
+            }
+            
+            .matrix-item.hidden {
+                width: 0 !important;
+                height: 0 !important;
+                overflow: hidden !important;
+                margin: 0 !important;
+                padding: 0 !important;
             }
         }
     </style>
@@ -4023,11 +4043,19 @@ const getLanguageColor = (language) => {
                         item.classList.remove('hidden');
                         item.style.animation = 'matrixItemFadeIn 0.8s ease-out';
                         item.style.display = 'block';
+                        // Garantir que o item ocupe todo o espaço
+                        item.style.width = '100%';
+                        item.style.height = 'auto';
+                        item.style.minHeight = '250px';
                     } else {
                         item.classList.add('hidden');
                         item.classList.remove('visible');
                         item.style.animation = '';
                         item.style.display = 'none';
+                        // Esconder completamente
+                        item.style.width = '0';
+                        item.style.height = '0';
+                        item.style.overflow = 'hidden';
                     }
                 });
                 
@@ -4141,10 +4169,18 @@ const getLanguageColor = (language) => {
                         item.classList.add('visible');
                         item.classList.remove('hidden');
                         item.style.display = 'block';
+                        // Garantir que o item ocupe todo o espaço
+                        item.style.width = '100%';
+                        item.style.height = 'auto';
+                        item.style.minHeight = '250px';
                     } else {
                         item.classList.add('hidden');
                         item.classList.remove('visible');
                         item.style.display = 'none';
+                        // Esconder completamente
+                        item.style.width = '0';
+                        item.style.height = '0';
+                        item.style.overflow = 'hidden';
                     }
                 } else {
                     // Desktop: todos os itens visíveis
