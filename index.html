@@ -89,6 +89,28 @@
             section {
                 opacity: 1 !important;
                 transform: translateY(0) !important;
+                transition: none !important;
+            }
+            
+            /* Garantir que o título seja sempre visível no mobile */
+            .title-section {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+                transition: none !important;
+            }
+            
+            .professional-title {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+                visibility: visible !important;
+                transition: none !important;
+            }
+            
+            .subtitle, .comment {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+                visibility: visible !important;
+                transition: none !important;
             }
         }
     
@@ -1938,6 +1960,22 @@
         .matrix-item {
             padding: 1rem;
             min-height: 180px;
+            transition: all 0.8s ease-out;
+        }
+        
+        /* No mobile, esconder itens não visíveis */
+        .matrix-item.hidden {
+            opacity: 0;
+            transform: scale(0.8);
+            pointer-events: none;
+            display: none !important;
+        }
+        
+        .matrix-item.visible {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+            display: block !important;
         }
         
         .matrix-icon i {
@@ -2164,6 +2202,28 @@
         @media (max-width: 360px) {
             .section-wrapper {
                 padding: 0 0.8rem;
+            }
+            
+            .title-section {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+                transition: none !important;
+            }
+            
+            .professional-title {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+                visibility: visible !important;
+                transition: none !important;
+                display: flex !important;
+            }
+            
+            .subtitle, .comment {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+                visibility: visible !important;
+                transition: none !important;
+                display: block !important;
             }
             
             .data-matrix {
@@ -2728,6 +2788,9 @@
                 padding: 1.5rem 0.5rem;
                 padding-top: 10vh;
                 gap: 1.5rem;
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+                transition: none !important;
             }
             
             /* Garantir que o título seja sempre visível no mobile */
@@ -2735,6 +2798,16 @@
                 opacity: 1 !important;
                 transform: translateY(0) !important;
                 visibility: visible !important;
+                transition: none !important;
+                display: flex !important;
+            }
+            
+            .subtitle, .comment {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+                visibility: visible !important;
+                transition: none !important;
+                display: block !important;
             }
         }
         
@@ -2744,6 +2817,9 @@
                 padding: 1rem 0.3rem;
                 padding-top: 8vh;
                 gap: 1rem;
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+                transition: none !important;
             }
             
             /* Garantir que o título seja sempre visível no mobile */
@@ -2751,6 +2827,16 @@
                 opacity: 1 !important;
                 transform: translateY(0) !important;
                 visibility: visible !important;
+                transition: none !important;
+                display: flex !important;
+            }
+            
+            .subtitle, .comment {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+                visibility: visible !important;
+                transition: none !important;
+                display: block !important;
             }
         }
     </style>
@@ -3842,10 +3928,12 @@ const getLanguageColor = (language) => {
                         item.classList.add('visible');
                         item.classList.remove('hidden');
                         item.style.animation = 'matrixItemFadeIn 0.8s ease-out';
+                        item.style.display = 'block';
                     } else {
                         item.classList.add('hidden');
                         item.classList.remove('visible');
                         item.style.animation = '';
+                        item.style.display = 'none';
                     }
                 });
                 
@@ -3855,6 +3943,7 @@ const getLanguageColor = (language) => {
                 if (currentVisibleIndex < matrixItems.length) {
                     matrixItems[currentVisibleIndex].classList.add('visible');
                     matrixItems[currentVisibleIndex].classList.remove('hidden');
+                    matrixItems[currentVisibleIndex].style.display = 'block';
                     
                     // Adicionar animação de entrada
                     matrixItems[currentVisibleIndex].style.animation = 'matrixItemFadeIn 0.8s ease-out';
@@ -3873,8 +3962,19 @@ const getLanguageColor = (language) => {
             const isMobile = window.innerWidth <= 768;
             
             if (isMobile) {
-                // No mobile: apenas resetar o índice
+                // No mobile: resetar o índice e mostrar apenas o primeiro item
                 currentVisibleIndex = 0;
+                matrixItems.forEach((item, index) => {
+                    if (index === 0) {
+                        item.classList.add('visible');
+                        item.classList.remove('hidden');
+                        item.style.display = 'block';
+                    } else {
+                        item.classList.add('hidden');
+                        item.classList.remove('visible');
+                        item.style.display = 'none';
+                    }
+                });
             } else {
                 // Desktop: pausa antes de reiniciar
                 setTimeout(() => {
@@ -3883,6 +3983,7 @@ const getLanguageColor = (language) => {
                         item.classList.add('hidden');
                         item.classList.remove('visible');
                         item.style.animation = '';
+                        item.style.display = 'none';
                     });
                     
                     // Resetar o índice
@@ -3891,6 +3992,7 @@ const getLanguageColor = (language) => {
                     // Mostrar o primeiro item
                     matrixItems[0].classList.add('visible');
                     matrixItems[0].classList.remove('hidden');
+                    matrixItems[0].style.display = 'block';
                     matrixItems[0].style.animation = 'matrixItemFadeIn 0.8s ease-out';
                 }, 2000); // Pausa de 2 segundos quando todos estão visíveis
             }
@@ -3944,14 +4046,17 @@ const getLanguageColor = (language) => {
                     if (index === 0) {
                         item.classList.add('visible');
                         item.classList.remove('hidden');
+                        item.style.display = 'block';
                     } else {
                         item.classList.add('hidden');
                         item.classList.remove('visible');
+                        item.style.display = 'none';
                     }
                 } else {
                     // Desktop: todos os itens visíveis
                     item.classList.add('visible');
                     item.classList.remove('hidden');
+                    item.style.display = 'block';
                 }
             });
             
@@ -4106,7 +4211,42 @@ const getLanguageColor = (language) => {
                     section.classList.add('active');
                     section.style.opacity = '1';
                     section.style.transform = 'translateY(0)';
+                    section.style.transition = 'none';
                 });
+                
+                // Garantir que o título seja sempre visível no mobile
+                const titleSection = document.querySelector('.title-section');
+                const professionalTitle = document.querySelector('.professional-title');
+                const subtitle = document.querySelector('.subtitle');
+                const comment = document.querySelector('.comment');
+                
+                if (titleSection) {
+                    titleSection.style.opacity = '1';
+                    titleSection.style.transform = 'translateY(0)';
+                    titleSection.style.transition = 'none';
+                }
+                
+                if (professionalTitle) {
+                    professionalTitle.style.opacity = '1';
+                    professionalTitle.style.transform = 'translateY(0)';
+                    professionalTitle.style.visibility = 'visible';
+                    professionalTitle.style.transition = 'none';
+                }
+                
+                if (subtitle) {
+                    subtitle.style.opacity = '1';
+                    subtitle.style.transform = 'translateY(0)';
+                    subtitle.style.visibility = 'visible';
+                    subtitle.style.transition = 'none';
+                }
+                
+                if (comment) {
+                    comment.style.opacity = '1';
+                    comment.style.transform = 'translateY(0)';
+                    comment.style.visibility = 'visible';
+                    comment.style.transition = 'none';
+                }
+                
                 return;
             }
             
@@ -4569,11 +4709,16 @@ const setupTypeEffect = () => {
                     if (index === 0) {
                         item.classList.add('visible');
                         item.classList.remove('hidden');
+                        item.style.display = 'block';
                     } else {
                         item.classList.add('hidden');
                         item.classList.remove('visible');
+                        item.style.display = 'none';
                     }
                 });
+                
+                // Reconfigurar animações de scroll para mobile
+                configureScrollAnimations();
             }
         });
     
