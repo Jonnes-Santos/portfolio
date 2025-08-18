@@ -65,15 +65,31 @@
             padding: var(--section-spacing) 0;
             margin: 0;
             transform-style: preserve-3d;
-            opacity: 0;
-            transform: translateY(50px);
+            opacity: 1;
+            transform: translateY(0);
             transition: all 1.8s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
         }
     
-        section.active {
-            opacity: 1;
-            transform: translateY(0);
+        /* Desktop: animação de entrada */
+        @media (min-width: 769px) {
+            section {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            
+            section.active {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Mobile: sempre visível */
+        @media (max-width: 768px) {
+            section {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+            }
         }
     
         .title-section {
@@ -87,6 +103,10 @@
             flex-direction: column;
             align-items: center;
             gap: 2rem;
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+            position: relative;
+            z-index: 1;
         }
     
         /* Wrapper para conteúdo das seções */
@@ -287,8 +307,8 @@
             margin: 2rem auto;
             max-width: 1000px;
             width: 90%;
-            opacity: 1;
-            transform: translateY(0);
+            opacity: 1 !important;
+            transform: translateY(0) !important;
             position: relative;
             z-index: 1;
         }
@@ -510,6 +530,10 @@
             margin: 2rem auto;
             max-width: 1200px;
             width: 90%;
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+            position: relative;
+            z-index: 1;
         }
     
         .timeline {
@@ -3994,6 +4018,20 @@ const getLanguageColor = (language) => {
         };
     
         const configureScrollAnimations = () => {
+            // Verificar se é mobile
+            const isMobile = window.innerWidth <= 768;
+            
+            if (isMobile) {
+                // No mobile, todas as seções são sempre visíveis
+                document.querySelectorAll('section').forEach(section => {
+                    section.classList.add('active');
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                });
+                return;
+            }
+            
+            // Desktop: animação de scroll
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if(entry.isIntersecting) {
@@ -4440,6 +4478,9 @@ const setupTypeEffect = () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
+            
+            // Reconfigurar animações quando a tela é redimensionada
+            configureScrollAnimations();
         });
     
         window.addEventListener('load', () => {
