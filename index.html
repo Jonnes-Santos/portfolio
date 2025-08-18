@@ -1931,7 +1931,7 @@
         }
         
         .matrix-grid {
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: 1fr;
             gap: 1rem;
         }
         
@@ -2170,6 +2170,11 @@
                 padding: 1rem;
                 margin: 1rem auto;
                 width: 98%;
+            }
+            
+            .matrix-grid {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
             }
             
             .matrix-item {
@@ -2649,16 +2654,22 @@
                 font-size: clamp(1.5rem, 6vw, 2.5rem);
                 margin-bottom: 1rem;
                 padding: 0 1rem;
+                opacity: 1 !important;
+                transform: translateY(0) !important;
             }
             
             .subtitle {
                 font-size: clamp(0.9rem, 3.5vw, 1.3rem);
                 margin-left: 0;
+                opacity: 1 !important;
+                transform: translateY(0) !important;
             }
             
             .comment {
                 font-size: clamp(0.8rem, 3vw, 1.1rem);
                 margin-left: 0;
+                opacity: 1 !important;
+                transform: translateY(0) !important;
             }
         }
         
@@ -2667,16 +2678,22 @@
                 font-size: clamp(1.3rem, 5vw, 2rem);
                 margin-bottom: 0.8rem;
                 padding: 0 0.5rem;
+                opacity: 1 !important;
+                transform: translateY(0) !important;
             }
             
             .subtitle {
                 font-size: clamp(0.8rem, 3vw, 1.1rem);
                 margin-left: 0;
+                opacity: 1 !important;
+                transform: translateY(0) !important;
             }
             
             .comment {
                 font-size: clamp(0.7rem, 2.5vw, 1rem);
                 margin-left: 0;
+                opacity: 1 !important;
+                transform: translateY(0) !important;
             }
         }
         
@@ -2685,16 +2702,22 @@
                 font-size: clamp(1.2rem, 4.5vw, 1.8rem);
                 margin-bottom: 0.6rem;
                 padding: 0 0.3rem;
+                opacity: 1 !important;
+                transform: translateY(0) !important;
             }
             
             .subtitle {
                 font-size: clamp(0.7rem, 2.8vw, 1rem);
                 margin-left: 0;
+                opacity: 1 !important;
+                transform: translateY(0) !important;
             }
             
             .comment {
                 font-size: clamp(0.6rem, 2.2vw, 0.9rem);
                 margin-left: 0;
+                opacity: 1 !important;
+                transform: translateY(0) !important;
             }
         }
         
@@ -2706,6 +2729,13 @@
                 padding-top: 10vh;
                 gap: 1.5rem;
             }
+            
+            /* Garantir que o título seja sempre visível no mobile */
+            .professional-title {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+                visibility: visible !important;
+            }
         }
         
         @media (max-width: 480px) {
@@ -2715,11 +2745,18 @@
                 padding-top: 8vh;
                 gap: 1rem;
             }
+            
+            /* Garantir que o título seja sempre visível no mobile */
+            .professional-title {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+                visibility: visible !important;
+            }
         }
     </style>
 </head>
 <body>
-    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+
     <canvas id="canvas3d"></canvas>
     <div class="webgl-error"></div>
     
@@ -3793,9 +3830,28 @@ const getLanguageColor = (language) => {
                 securityIndicator.className = 'status-indicator online';
             };
             
-            // Função para fazer o efeito sequencial dos itens
-            const cycleMatrixItems = () => {
-                // Mostrar o próximo item
+                    // Função para fazer o efeito sequencial dos itens
+        const cycleMatrixItems = () => {
+            // Verificar se é mobile
+            const isMobile = window.innerWidth <= 768;
+            
+            if (isMobile) {
+                // No mobile: mostrar apenas um item por vez
+                matrixItems.forEach((item, index) => {
+                    if (index === currentVisibleIndex) {
+                        item.classList.add('visible');
+                        item.classList.remove('hidden');
+                        item.style.animation = 'matrixItemFadeIn 0.8s ease-out';
+                    } else {
+                        item.classList.add('hidden');
+                        item.classList.remove('visible');
+                        item.style.animation = '';
+                    }
+                });
+                
+                currentVisibleIndex = (currentVisibleIndex + 1) % matrixItems.length;
+            } else {
+                // Desktop: mostrar todos os itens sequencialmente
                 if (currentVisibleIndex < matrixItems.length) {
                     matrixItems[currentVisibleIndex].classList.add('visible');
                     matrixItems[currentVisibleIndex].classList.remove('hidden');
@@ -3808,11 +3864,19 @@ const getLanguageColor = (language) => {
                     // Todos os itens estão visíveis, reiniciar o ciclo
                     resetMatrixCycle();
                 }
-            };
+            }
+        };
             
-            // Função para reiniciar o ciclo
-            const resetMatrixCycle = () => {
-                // Pausa antes de reiniciar
+                    // Função para reiniciar o ciclo
+        const resetMatrixCycle = () => {
+            // Verificar se é mobile
+            const isMobile = window.innerWidth <= 768;
+            
+            if (isMobile) {
+                // No mobile: apenas resetar o índice
+                currentVisibleIndex = 0;
+            } else {
+                // Desktop: pausa antes de reiniciar
                 setTimeout(() => {
                     // Esconder todos os itens
                     matrixItems.forEach(item => {
@@ -3829,7 +3893,8 @@ const getLanguageColor = (language) => {
                     matrixItems[0].classList.remove('hidden');
                     matrixItems[0].style.animation = 'matrixItemFadeIn 0.8s ease-out';
                 }, 2000); // Pausa de 2 segundos quando todos estão visíveis
-            };
+            }
+        };
             
             // Função para adicionar logs dinâmicos
             const addDynamicLogs = () => {
@@ -3867,10 +3932,15 @@ const getLanguageColor = (language) => {
                 }, 4000);
             };
             
-            // Inicializar matrix
-            const initMatrix = () => {
-                // Configurar estado inicial dos itens
-                matrixItems.forEach((item, index) => {
+                    // Inicializar matrix
+        const initMatrix = () => {
+            // Verificar se é mobile
+            const isMobile = window.innerWidth <= 768;
+            
+            // Configurar estado inicial dos itens
+            matrixItems.forEach((item, index) => {
+                if (isMobile) {
+                    // No mobile: apenas o primeiro item visível
                     if (index === 0) {
                         item.classList.add('visible');
                         item.classList.remove('hidden');
@@ -3878,25 +3948,34 @@ const getLanguageColor = (language) => {
                         item.classList.add('hidden');
                         item.classList.remove('visible');
                     }
-                });
-                
-                updateMatrixTime();
-                updateCPU();
-                updateMemory();
-                updateNetwork();
-                updateSecurity();
-                addDynamicLogs();
-                
-                // Atualizações em tempo real
-                setInterval(updateMatrixTime, 1000); // Tempo a cada segundo
-                setInterval(updateCPU, 3000);        // CPU a cada 3 segundos
-                setInterval(updateMemory, 4000);     // Memória a cada 4 segundos
-                setInterval(updateNetwork, 5000);    // Rede a cada 5 segundos
-                setInterval(updateSecurity, 6000);   // Segurança a cada 6 segundos
-                
-                // Ciclo dos itens da matrix (um a um aparece)
-                setInterval(cycleMatrixItems, 1500); // Aparece um item a cada 1.5 segundos
-            };
+                } else {
+                    // Desktop: todos os itens visíveis
+                    item.classList.add('visible');
+                    item.classList.remove('hidden');
+                }
+            });
+            
+            updateMatrixTime();
+            updateCPU();
+            updateMemory();
+            updateNetwork();
+            updateSecurity();
+            addDynamicLogs();
+            
+            // Atualizações em tempo real
+            setInterval(updateMatrixTime, 1000); // Tempo a cada segundo
+            setInterval(updateCPU, 3000);        // CPU a cada 3 segundos
+            setInterval(updateMemory, 4000);     // Memória a cada 4 segundos
+            setInterval(updateNetwork, 5000);    // Rede a cada 5 segundos
+            setInterval(updateSecurity, 6000);   // Segurança a cada 6 segundos
+            
+            // Ciclo dos itens da matrix
+            if (isMobile) {
+                setInterval(cycleMatrixItems, 2000); // Mobile: troca item a cada 2 segundos
+            } else {
+                setInterval(cycleMatrixItems, 1500); // Desktop: aparece um item a cada 1.5 segundos
+            }
+        };
             
             // Iniciar quando a página carregar
             initMatrix();
@@ -4481,6 +4560,21 @@ const setupTypeEffect = () => {
             
             // Reconfigurar animações quando a tela é redimensionada
             configureScrollAnimations();
+            
+            // Reconfigurar matrix quando a tela é redimensionada
+            if (window.innerWidth <= 768) {
+                // Mobile: reiniciar matrix com comportamento mobile
+                const matrixItems = document.querySelectorAll('.matrix-item');
+                matrixItems.forEach((item, index) => {
+                    if (index === 0) {
+                        item.classList.add('visible');
+                        item.classList.remove('hidden');
+                    } else {
+                        item.classList.add('hidden');
+                        item.classList.remove('visible');
+                    }
+                });
+            }
         });
     
         window.addEventListener('load', () => {
